@@ -18,8 +18,15 @@ void fcfs(int* queue,int head, int n) {
 }
 
 int main() {
-    int queue [] = {86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130, 97};
+    printf("MIN %d MAX %d\n",MIN_DISK,MAX_DISK);
+    int n;
+    printf("Enter number of disk acesses: ");
+    scanf("%d",&n);
+    int *queue = (int *)malloc(sizeof(int));
     int head = 143;
-    int n = sizeof(queue)/sizeof(queue[0]);
+    printf("\ncurrent head at %d\n",head);
+    printf("Enter access requests:\n");
+    for(int i = 0; i < n; i++)
+        scanf("%d",&queue[i]);
     fcfs(queue, head, n);
 }

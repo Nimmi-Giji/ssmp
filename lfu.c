@@ -47,6 +47,7 @@ void lfu(int* pages, int n) {
     printf("Total - %d\n", pageFaultCount);
 }
 int main() {
+    printf("Number of frames: %d\n",NUM_FRAMES);
     printf("Enter number of references: ");
     int n;
     scanf("%d", &n);

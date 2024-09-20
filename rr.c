@@ -51,6 +51,7 @@ void rr(queue* q, int n) {
     int wt, tt, ct, qt;
     wt = tt = ct = 0;
     qt = 4;
+    printf("Time quantum = %d\n", qt);
     while(!isEmpty(q)) {
         process temp = *dequeue(q);
         if(temp.queue_arrival <= ct) {
@@ -85,6 +86,7 @@ int main() {
     init(&q);
     process p;
     for (int i = 0; i < n; i++) {
+        printf("Enter arrival, burst of P%d: ",i);
         scanf("%d %d", &p.arrival_time, &p.burst_time);
         p.pid = i;
         p.queue_arrival = p.arrival_time;

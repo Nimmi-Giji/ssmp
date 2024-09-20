@@ -36,6 +36,7 @@ void fifo(int* pages, int n) {
 }
 
 int main() {
+    printf("Number of frames: %d\n",NUM_FRAMES);
     printf("Enter number of references: ");
     int n;
     scanf("%d", &n);

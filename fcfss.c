@@ -24,14 +24,14 @@ void fcfs(process *queue, int n) {
     int wt = 0, tt = 0, ct = 0;
     for (int i = 0; i < n; i++) {
         if (ct >= queue[i].arrival_time) {
-            printf("P%d\t|", i);
+            printf("P%d\t|", queue[i].pid);
             wt += ct - queue[i].arrival_time;
             ct += queue[i].burst_time;
             tt += ct - queue[i].arrival_time;
         }
         else {
             ct = queue[i].arrival_time;
-            printf("P%d\t|", i);
+            printf("P%d\t|", queue[i].pid);
             wt += ct - queue[i].arrival_time;
             ct += queue[i].burst_time;
             tt += ct - queue[i].arrival_time;
@@ -46,6 +46,7 @@ int main() {
     scanf("%d", &n);
     process *queue = (process *)calloc(n, sizeof(process));
     for (int i = 0; i < n; i++) {
+        printf("Enter arrival, burst of P%d: ",i);
         scanf("%d %d", &queue[i].arrival_time, &queue[i].burst_time);
         queue[i].pid = i;
     }

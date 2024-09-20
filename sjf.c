@@ -63,6 +63,7 @@ int main() {
     process *queue = (process *)calloc(n, sizeof(process));
     for(int i = 0; i < n; i++) {
         queue[i].pid = i;
+        printf("Enter arrival, burst of P%d: ",i);
         scanf("%d %d", &queue[i].arrival_time, &queue[i].burst_time);
         queue[i].complete = 0;
     }

@@ -3,7 +3,7 @@
 #include<math.h>
 
 #define MIN_DISK 0
-#define MAX_DISK 499
+#define MAX_DISK 4999
 
 void sort(int* queue, int n) {
     for(int i = 0; i < n - 1; i++) {
@@ -69,8 +69,18 @@ void cscan(int* queue, int n, int head, int dir) {
     }
 }
 int main() {
-    int queue[] = {133, 25, 62, 16, 24, 6, 205, 403, 121, 192, 244, 13, 342, 235, 308};
-    int head = 55;
-    int n = sizeof(queue)/sizeof(int);
+    printf("MIN %d MAX %d\n",MIN_DISK,MAX_DISK);
+    int n;
+    printf("Enter number of disk acesses: ");
+    scanf("%d",&n);
+    int *queue = (int *)malloc(sizeof(int));
+    int head = 143;
+    printf("\ncurrent head at %d\n",head);
+    printf("Enter access requests:\n");
+    for(int i = 0; i < n; i++)
+        scanf("%d",&queue[i]);
+    printf("cscan to MAX:\n");
     cscan(queue, n, head, 1);
+    printf("cscan to MIN:\n");
+    cscan(queue, n, head, 0);
 }
