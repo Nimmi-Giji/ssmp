@@ -54,13 +54,17 @@ void priority(process* queue, int n) {
     printf("Waiting time %f\n", (float)wt/n);
 }
 int main() {
+    printf("Enter number of processes: ");
+    int n;
+    scanf("%d", &n);
+    process *queue = (process *)calloc(n, sizeof(process));
     process queue[5];
-    for(int i = 0; i < 5; i++) {
+    for(int i = 0; i < n; i++) {
         queue[i].pid = i;
         scanf("%d %d %d", &queue[i].arrival_time, &queue[i].burst_time, &queue[i].priority);
         queue[i].complete = 0;
         queue[i].queue_arrival = queue[i].arrival_time;
         queue[i].rem_time = queue[i].burst_time;
     }
-    priority(queue, 5);
+    priority(queue, n);
 }

@@ -42,7 +42,12 @@ void lru(int* pages, int n) {
 }
 
 int main() {
-    int pages[] = {7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2};
-    int n = sizeof(pages)/sizeof(int);
+    printf("Enter number of references: ");
+    int n;
+    scanf("%d", &n);
+    int *pages = (int *)calloc(n, sizeof(int));
+    printf("\nEnter references: ");
+    for(int i = 0; i < n; i++) 
+        scanf("%d", &pages[i]);
     lru(pages, n);
 }
