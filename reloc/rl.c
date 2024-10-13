@@ -30,6 +30,7 @@ void main() {
                 else
                     actualadd = addr + start;
                 fprintf(fp2, "%d\t%d%d\n", address, opcode, actualadd);
+                printf("%d\t%d%d\n", address, opcode, actualadd);
                 address += 3;
             }
             fscanf(fp1, "%s", input);
