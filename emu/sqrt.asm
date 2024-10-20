@@ -1,0 +1,31 @@
+;SQRT
+
+ASSUME CS:CODE, DS:DATA
+DATA SEGMENT
+    OP DB 0FFH
+    SQRT DB ?
+DATA ENDS
+
+CODE SEGMENT
+    START:
+    MOV AX,DATA
+    MOV DS,AX
+    
+    MOV DL,01H
+    MOV AL,OP
+    MOV CL,00H
+    
+    RPT:
+    INC CL
+    ADD DL,02H
+    SUB AL,DL 
+    CMP AL,00H
+    JBE FIN 
+    JMP RPT
+    
+    FIN:
+    MOV SQRT,CL
+    MOV AH,4CH
+    INT 21H
+CODE ENDS
+END START
