@@ -1,0 +1,36 @@
+;BUBBLE SORT
+
+ASSUME CS:CODE, DS:DATA
+DATA SEGMENT
+    ARRAY DW 23H,46H,67H,53H,26H
+    COUNT EQU 05H
+DATA ENDS
+CODE SEGMENT
+    START:
+    MOV AX,DATA
+    MOV DS,AX
+    
+    MOV DX, COUNT-1 
+    
+    AGAIN0:
+    MOV CX,DX
+    LEA SI,ARRAY
+    
+    AGAIN1:
+    MOV AX,[SI]
+    CMP AX,[SI+2]
+    JL PR
+    XCHG [SI+2],AX
+    XCHG [SI],AX
+    
+    PR:
+    ADD SI,02
+    LOOP AGAIN1
+    
+    DEC DX
+    JNZ AGAIN0
+    
+    MOV AH,4CH
+    INT 21H
+CODE ENDS
+END START

@@ -1,0 +1,37 @@
+;BCD TO HEX
+
+ASSUME CS:CODE, DS:DATA
+
+DATA SEGMENT
+    BCD DB 06H,05H,05H,03H,05H
+    HEX DW ?
+DATA ENDS
+
+CODE SEGMENT
+    START:
+    MOV AX,DATA
+    MOV DS, AX
+    
+    MOV SI, OFFSET BCD
+    
+    MOV AX,2710H
+    MOV CL,05H
+    MOV BP,000AH 
+    PUSH AX
+    MOV DI,0000H
+    
+    HEXA:
+    MOV BL,[SI]
+    MUL BX
+    ADD DI,AX
+    POP AX
+    DIV BP
+    PUSH AX
+    INC SI
+    LOOP HEXA
+    
+    MOV HEX,DI
+    MOV AH,4CH
+    INT 21H
+    CODE ENDS
+END START

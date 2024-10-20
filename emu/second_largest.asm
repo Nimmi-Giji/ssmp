@@ -1,0 +1,49 @@
+;SECOND LARGEST
+
+ASSUME CS:CODE, DS:DATA
+DATA SEGMENT
+    ARRAY DB 09H,21H,34H,56H,23H 
+    LAR DB ?
+    SLAR DB ?
+    COUNT EQU 05H
+DATA ENDS
+
+CODE SEGMENT
+    START:
+    MOV AX,DATA
+    MOV DS,AX
+    
+    LEA SI, ARRAY 
+    MOV AL,[SI]
+    MOV LAR,AL
+    MOV SLAR,0
+    
+    MOV CL,COUNT 
+    
+    IT1:
+    INC SI
+    MOV AL,[SI]
+    CMP AL,LAR
+    JNA NXT1
+    XCHG AL,LAR
+    NXT1:
+    LOOP IT1
+    
+    MOV CL,COUNT
+    LEA SI,ARRAY
+    
+    IT2: 
+    INC SI
+    MOV AL,[SI]
+    CMP AL,SLAR 
+    JNA NXT2 
+    CMP AL,LAR
+    JNB NXT2
+    XCHG AL,SLAR
+    NXT2:
+    LOOP IT2
+    
+    MOV AH,4CH
+    INT 21H
+CODE ENDS
+END START

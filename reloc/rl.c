@@ -1,41 +1,76 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-void main() {
-    char add[6], length[10], input[10], binary[12], bitmask[12], relocbit;
-    int start, inp, len, i, address, opcode, addr, actualadd;
-    FILE *fp1, *fp2;
-    printf("Enter the actual starting address : ");
-    scanf("%d", &start);
-    fp1 = fopen("relinput.txt", "r");
-    fp2 = fopen("reloutput.txt", "w");
-    fscanf(fp1, "%s", input);
-    while (strcmp(input, "E") != 0) {
-        if (strcmp(input, "H") == 0) {
-            fscanf(fp1, "%s", add);
-            fscanf(fp1, "%s", length);
-            fscanf(fp1, "%s", input);
-        }
-        if (strcmp(input, "T") == 0) {
-            fscanf(fp1, "%d", &address);
-            fscanf(fp1, "%s", bitmask);
-            address += start;
-            len = strlen(bitmask);
-            for (i = 0; i < len; i++) {
-                fscanf(fp1, "%d", &opcode);
-                fscanf(fp1, "%d", &addr);
-                relocbit = bitmask[i];
-                if (relocbit == '0')
-                    actualadd = addr;
-                else
-                    actualadd = addr + start;
-                fprintf(fp2, "%d\t%d%d\n", address, opcode, actualadd);
-                printf("%d\t%d%d\n", address, opcode, actualadd);
-                address += 3;
-            }
-            fscanf(fp1, "%s", input);
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+char bit[30];
+char bitmask[20];
+
+void convert(char mask[]) {
+    int len = strlen(mask);
+    strcpy(bit,"");
+    for(int i = 0 ; i < len ; i++) {
+        switch(mask[i]) {
+            case '0': strcat(bit,"0000");break;
+            case '1': strcat(bit,"0001");break;
+            case '2': strcat(bit,"0010");break;
+            case '3': strcat(bit,"0011");break;
+            case '4': strcat(bit,"0100");break;
+            case '5': strcat(bit,"0101");break;
+            case '6': strcat(bit,"0110");break;
+            case '7': strcat(bit,"0111");break;
+            case '8': strcat(bit,"1000");break;
+            case '9': strcat(bit,"1001");break;
+            case 'A': strcat(bit,"1010");break;
+            case 'B': strcat(bit,"1011");break;
+            case 'C': strcat(bit,"1100");break;
+            case 'D': strcat(bit,"1101");break;
+            case 'E': strcat(bit,"1110");break;
+            case 'F': strcat(bit,"1111");break;
+            default: break;
         }
     }
-    fclose(fp1);
-    fclose(fp2);
+}
+int main() {
+    FILE *obj;
+    int start,addr,modif,bin=0,add,len,i;
+    char rec[20],name[20],first[3],second[5];
+    scanf("%x",&start);
+    addr = start;
+    obj = fopen("relinput.txt","r");
+    fscanf(obj,"%s",rec);
+    if(strcmp(rec,"H")==0){
+        fscanf(obj,"%s",name);
+        fscanf(obj,"%x",&add);
+        fscanf(obj,"%x",&len);
+    }
+    else
+        exit(1);
+    strcpy(rec,"");
+    fscanf(obj,"%s",rec);
+    while(strcmp(rec,"E")!=0){
+        if(strcmp(rec,"T")==0){
+            fscanf(obj,"%x",&add);
+            fscanf(obj,"%x",&len);
+            fscanf(obj,"%s",bitmask);
+            add += start;
+            bin=0;
+            convert(bitmask);
+            fscanf(obj,"%s",rec);
+        }
+        if(bit[bin] == '1') {
+            if(i<2) first[i] = rec[i];
+            else second[i-2] = rec[i];
+
+            first[2] = second[4]='\0';
+            modif = strtol(second,NULL,16);
+            modif += start;
+            printf("%x\t%s%x\n",add,first,modif);
+        }
+        else
+            printf("%x\t%s\n",add,rec);
+
+        add += 3;
+        bin++;
+        fscanf(obj,"%s",rec);
+    }
 }
