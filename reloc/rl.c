@@ -58,16 +58,18 @@ int main() {
             fscanf(obj,"%s",rec);
         }
         if(bit[bin] == '1') {
-            if(i<2) first[i] = rec[i];
-            else second[i-2] = rec[i];
+            for(i = 0; i < 6; i++) {
+                if(i<2) first[i] = rec[i];
+                else second[i-2] = rec[i];
+            }
 
             first[2] = second[4]='\0';
             modif = strtol(second,NULL,16);
             modif += start;
-            printf("%x\t%s%x\n",add,first,modif);
+            printf("%X\t%s%x\n",add,first,modif);
         }
         else
-            printf("%x\t%s\n",add,rec);
+            printf("%X\t%s\n",add,rec);
 
         add += 3;
         bin++;
